@@ -267,6 +267,60 @@ docs/03-report-template.md
 
 ## 8. 一键跑完整流程
 
+最推荐使用这个脚本，它会从环境配置、数据准备、COLMAP、训练、渲染、指标评估一路跑完：
+
+```bash
+DATASET_NAME=my_scene \
+VIDEO_PATH=/path/to/my_scene.mp4 \
+FPS=2 \
+bash scripts/run_all_ubuntu.sh
+```
+
+如果输入是一组照片：
+
+```bash
+DATASET_NAME=my_scene \
+IMAGE_DIR=/path/to/images \
+bash scripts/run_all_ubuntu.sh
+```
+
+如果环境已经配好，不想重新创建/更新 Conda 环境：
+
+```bash
+DATASET_NAME=my_scene \
+VIDEO_PATH=/path/to/my_scene.mp4 \
+RUN_SETUP=0 \
+bash scripts/run_all_ubuntu.sh
+```
+
+如果要把报告要求的参数对比也一并跑完：
+
+```bash
+DATASET_NAME=my_scene \
+VIDEO_PATH=/path/to/my_scene.mp4 \
+RUN_COMPARISONS=1 \
+bash scripts/run_all_ubuntu.sh
+```
+
+脚本输出：
+
+```text
+outputs/my_scene/baseline/                      baseline 模型
+outputs/my_scene/iter_7000/                     低迭代对比，RUN_COMPARISONS=1 时生成
+outputs/my_scene/densify_low/                   densify 阈值对比，RUN_COMPARISONS=1 时生成
+outputs/my_scene/pos_lr_low/                    位置学习率对比，RUN_COMPARISONS=1 时生成
+outputs/my_scene/_logs/                         每一步日志
+outputs/my_scene/RUN_SUMMARY.md                 本轮实验摘要
+```
+
+完整参数可看：
+
+```bash
+bash scripts/run_all_ubuntu.sh --help
+```
+
+下面这个旧脚本适合环境已经配好、只想跑 baseline 的简化流程。
+
 如果环境已经配好，并且输入是视频，可以直接跑：
 
 ```bash
