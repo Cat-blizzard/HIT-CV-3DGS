@@ -168,7 +168,7 @@ conda activate gaussian_splatting
 cd third_party/gaussian-splatting
 python train.py \
   -s ../../data/my_scene \
-  -m ../../outputs/my_scene/baseline \
+  -m ../../results/my_scene/runs/baseline \
   --eval \
   --iterations 30000
 cd ../..
@@ -177,8 +177,8 @@ cd ../..
 训练输出重点看：
 
 ```text
-outputs/my_scene/baseline/cfg_args
-outputs/my_scene/baseline/point_cloud/iteration_30000/point_cloud.ply
+results/my_scene/runs/baseline/cfg_args
+results/my_scene/runs/baseline/point_cloud/iteration_30000/point_cloud.ply
 ```
 
 ## 5. 渲染和计算指标
@@ -186,8 +186,8 @@ outputs/my_scene/baseline/point_cloud/iteration_30000/point_cloud.ply
 ```bash
 conda activate gaussian_splatting
 cd third_party/gaussian-splatting
-python render.py -m ../../outputs/my_scene/baseline
-python metrics.py -m ../../outputs/my_scene/baseline
+python render.py -m ../../results/my_scene/runs/baseline
+python metrics.py -m ../../results/my_scene/runs/baseline
 cd ../..
 ```
 
@@ -201,7 +201,7 @@ cd ../..
 2. 导入训练输出：
 
 ```text
-outputs/my_scene/baseline/point_cloud/iteration_30000/point_cloud.ply
+results/my_scene/runs/baseline/point_cloud/iteration_30000/point_cloud.ply
 ```
 
 SIBR Viewer 是官方实时查看器。Ubuntu 下需要额外拉取和编译：
@@ -222,11 +222,11 @@ git -C third_party/gaussian-splatting submodule update --init SIBR_viewers
 cd third_party/gaussian-splatting
 python train.py \
   -s ../../data/my_scene \
-  -m ../../outputs/my_scene/iter_7000 \
+  -m ../../results/my_scene/runs/iter_7000 \
   --eval \
   --iterations 7000
-python render.py -m ../../outputs/my_scene/iter_7000
-python metrics.py -m ../../outputs/my_scene/iter_7000
+python render.py -m ../../results/my_scene/runs/iter_7000
+python metrics.py -m ../../results/my_scene/runs/iter_7000
 cd ../..
 ```
 
@@ -236,11 +236,11 @@ cd ../..
 cd third_party/gaussian-splatting
 python train.py \
   -s ../../data/my_scene \
-  -m ../../outputs/my_scene/densify_low \
+  -m ../../results/my_scene/runs/densify_low \
   --eval \
   --densify_grad_threshold 0.0001
-python render.py -m ../../outputs/my_scene/densify_low
-python metrics.py -m ../../outputs/my_scene/densify_low
+python render.py -m ../../results/my_scene/runs/densify_low
+python metrics.py -m ../../results/my_scene/runs/densify_low
 cd ../..
 ```
 
@@ -250,11 +250,11 @@ cd ../..
 cd third_party/gaussian-splatting
 python train.py \
   -s ../../data/my_scene \
-  -m ../../outputs/my_scene/pos_lr_low \
+  -m ../../results/my_scene/runs/pos_lr_low \
   --eval \
   --position_lr_init 0.00008
-python render.py -m ../../outputs/my_scene/pos_lr_low
-python metrics.py -m ../../outputs/my_scene/pos_lr_low
+python render.py -m ../../results/my_scene/runs/pos_lr_low
+python metrics.py -m ../../results/my_scene/runs/pos_lr_low
 cd ../..
 ```
 
@@ -305,12 +305,13 @@ bash scripts/run_all_ubuntu.sh
 脚本输出：
 
 ```text
-outputs/my_scene/baseline/                      baseline 模型
-outputs/my_scene/iter_7000/                     低迭代对比，RUN_COMPARISONS=1 时生成
-outputs/my_scene/densify_low/                   densify 阈值对比，RUN_COMPARISONS=1 时生成
-outputs/my_scene/pos_lr_low/                    位置学习率对比，RUN_COMPARISONS=1 时生成
-outputs/my_scene/_logs/                         每一步日志
-outputs/my_scene/RUN_SUMMARY.md                 本轮实验摘要
+results/my_scene/runs/baseline/                 baseline 模型、渲染结果、metrics JSON
+results/my_scene/runs/iter_7000/                低迭代对比，RUN_COMPARISONS=1 时生成
+results/my_scene/runs/densify_low/              densify 阈值对比，RUN_COMPARISONS=1 时生成
+results/my_scene/runs/pos_lr_low/               位置学习率对比，RUN_COMPARISONS=1 时生成
+results/my_scene/logs/                          每一步终端日志
+results/my_scene/report_materials/              报告材料、样例图、点云路径、截图占位、checklist
+results/my_scene/RUN_SUMMARY.md                 本轮实验摘要
 ```
 
 完整参数可看：
@@ -366,7 +367,8 @@ environment/          Ubuntu/L40S 环境参考文件
 scripts/              初始化、抽帧、训练、评估脚本模板
 third_party/          外部仓库 submodule 和本地 simple-knn 源码备份
 data/                 本地数据集目录，不提交大文件
-outputs/              本地训练输出目录，不提交模型和渲染结果大文件
+results/              本地实验结果目录，不提交模型和渲染结果大文件
+outputs/              旧版输出目录，占位保留
 experiments/          参数对比记录表和实验记录模板
 ```
 

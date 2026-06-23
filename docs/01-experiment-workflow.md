@@ -49,7 +49,7 @@ python convert.py -s ../../data/my_scene --colmap_executable colmap
 cd third_party/gaussian-splatting
 python train.py \
   -s ../../data/my_scene \
-  -m ../../outputs/my_scene/baseline \
+  -m ../../results/my_scene/runs/baseline \
   --eval \
   --iterations 30000
 ```
@@ -57,7 +57,7 @@ python train.py \
 记录训练终端输出中的 L1、PSNR、训练耗时和保存迭代点。训练完成后的关键文件通常在：
 
 ```text
-outputs/my_scene/baseline/
+results/my_scene/runs/baseline/
   point_cloud/iteration_30000/point_cloud.ply
   cfg_args
 ```
@@ -66,8 +66,8 @@ outputs/my_scene/baseline/
 
 ```bash
 cd third_party/gaussian-splatting
-python render.py -m ../../outputs/my_scene/baseline
-python metrics.py -m ../../outputs/my_scene/baseline
+python render.py -m ../../results/my_scene/runs/baseline
+python metrics.py -m ../../results/my_scene/runs/baseline
 ```
 
 报告至少记录三组测试视角的渲染图、真实图、PSNR、SSIM，并解释指标高低和视觉效果是否一致。
@@ -81,7 +81,7 @@ python metrics.py -m ../../outputs/my_scene/baseline
 导入：
 
 ```text
-outputs/my_scene/baseline/point_cloud/iteration_30000/point_cloud.ply
+results/my_scene/runs/baseline/point_cloud/iteration_30000/point_cloud.ply
 ```
 
 SIBR 查看器适合实时交互展示，但需要额外编译或下载二进制。实验报告可以优先用 SuperSplat 截图完成。
@@ -92,13 +92,13 @@ SIBR 查看器适合实时交互展示，但需要额外编译或下载二进制
 
 ```bash
 # 快速低迭代对比
-python train.py -s ../../data/my_scene -m ../../outputs/my_scene/iter_7000 --eval --iterations 7000
+python train.py -s ../../data/my_scene -m ../../results/my_scene/runs/iter_7000 --eval --iterations 7000
 
 # 降低 densify 阈值，通常会增加高斯数量，可能提升细节但更耗显存
-python train.py -s ../../data/my_scene -m ../../outputs/my_scene/densify_low --eval --densify_grad_threshold 0.0001
+python train.py -s ../../data/my_scene -m ../../results/my_scene/runs/densify_low --eval --densify_grad_threshold 0.0001
 
 # 降低初始位置学习率，适合大尺度或相机轨迹不稳定场景
-python train.py -s ../../data/my_scene -m ../../outputs/my_scene/pos_lr_low --eval --position_lr_init 0.00008
+python train.py -s ../../data/my_scene -m ../../results/my_scene/runs/pos_lr_low --eval --position_lr_init 0.00008
 ```
 
 每组都要保存：命令、训练耗时、最终 PSNR、SSIM、高斯点数量、三张可视化对比图和现象解释。

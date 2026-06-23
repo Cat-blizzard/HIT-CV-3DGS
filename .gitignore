@@ -3,8 +3,10 @@ data/*
 !data/README.md
 outputs/*
 !outputs/README.md
+results/*
+!results/README.md
 
-# 3DGS model artifacts if they are accidentally placed outside outputs/.
+# 3DGS model artifacts if they are accidentally placed outside ignored result folders.
 *.ply
 *.ckpt
 *.pth
