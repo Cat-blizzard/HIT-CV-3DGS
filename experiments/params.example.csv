@@ -1,0 +1,5 @@
+run_id,dataset,iterations,resolution,data_device,densify_grad_threshold,position_lr_init,extra_args,train_time,final_psnr,final_ssim,gaussians,notes
+baseline,my_scene,30000,auto,cuda,0.0002,0.00016,--eval,,,,,
+iter_7000,my_scene,7000,auto,cuda,0.0002,0.00016,--eval,,,,,
+densify_low,my_scene,30000,auto,cuda,0.0001,0.00016,--eval,,,,,
+pos_lr_low,my_scene,30000,auto,cuda,0.0002,0.00008,--eval,,,,,

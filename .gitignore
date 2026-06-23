@@ -1,0 +1,34 @@
+# Local datasets and generated outputs.
+data/*
+!data/README.md
+outputs/*
+!outputs/README.md
+
+# 3DGS model artifacts if they are accidentally placed outside outputs/.
+*.ply
+*.ckpt
+*.pth
+*.pt
+*.npz
+*.npy
+
+# Python and build artifacts.
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+*.pyd
+*.so
+*.dll
+*.obj
+*.exp
+*.lib
+*.ninja_deps
+*.ninja_log
+
+# Editor and OS noise.
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
